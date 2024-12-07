@@ -6,6 +6,7 @@ import { useState } from "react";
 
 function LongAnsInput() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
+  const [inputQuestion, setInputQuestion] = useState("");
 
   return (
     <div className="w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
@@ -15,6 +16,8 @@ function LongAnsInput() {
             <input
               type="text"
               placeholder="Write a question"
+              value={inputQuestion}
+              onChange={(e) => setInputQuestion(e.target.value)}
               className="text-sm text-[#0D0D0D] placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-semibold focus:ring-0 focus:outline-none flex-1"
             />
             <input
@@ -56,10 +59,10 @@ function LongAnsInput() {
           </div>
         </div>
         <div className="w-full h-auto gap-8">
-          <input
+          <textarea
             type="text"
-            disabled
-            className="rounded-lg text-sm border border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full h-20"
+            disabled={!inputQuestion ? true : false}
+            className="rounded-lg text-sm border border-[#E1E4E8] resize-none py-[6px] focus:outline-[#219653] px-2 disabled:bg-[#F6F8FA] w-full h-20"
           />
         </div>
       </div>
