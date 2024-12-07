@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function InputTypesDropdown() {
   return (
-    <div className="w-[300px] h-auto border border-[#E1E4E8] rounded-2xl p-1 gap-2 absolute top-10 shadow-dropdown">
+    <div className="max-w-[300px] w-full h-auto border border-[#E1E4E8] rounded-2xl p-1 gap-2 absolute top-10 shadow-dropdown">
       <div className="w-full h-full">
         <div className="w-full h-9 bg-[#FAFBFC] py-2 px-4 rounded-lg flex items-center">
           <p className="text-xs font-semibold text-[#6A737D]">INPUT TYPES</p>

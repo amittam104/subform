@@ -1,7 +1,7 @@
 "use client";
 
 import InputTypesDropdown from "@/components/InputTypesDropdown";
-import { ArrowUpRight, FilePenLine, Plus } from "lucide-react";
+import ShortAnsInput from "@/components/ShortAnsInput";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -10,12 +10,12 @@ export default function Home() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
 
   return (
-    <div className="max-h-[1206px]">
+    <div className="max-h-screen flex flex-col">
       <header className="max-w-[90rem]">
-        <div className="max-w-[40rem] h-14 border-r border-b border-l px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
+        <div className="max-w-[40rem] h-14 border-r border-b border-l px-2 sm:px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
           <input
             type="text"
-            className="text-[#959DA5] text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
+            className="text-[#959DA5] text-sm sm:text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
             value={formName}
             placeholder="Untitled form"
             onChange={(e) => setFormName(e.target.value)}
@@ -25,7 +25,7 @@ export default function Home() {
             disabled
             className="rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1"
           >
-            <span className="text-center text-sm font-semibold text-[#959DA5]">
+            <span className="text-center text-xs sm:text-sm font-semibold text-[#959DA5]">
               Preview
             </span>
             <Image
@@ -38,8 +38,8 @@ export default function Home() {
           </button>
         </div>
       </header>
-      <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white fixed top-14 left-[25rem] h-[1150px] w-full">
-        <div className="w-full h-full gap-6">
+      <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
+        <div className="w-full h-full flex flex-col gap-6">
           <div className="w-full h-auto px-6 pb-20 gap-14">
             <div className="w-full h-auto pt-6 gap-8">
               <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
@@ -48,7 +48,7 @@ export default function Home() {
                   className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 shadow-bx"
                 >
                   <Image
-                    src="/plusIcon.svg"
+                    src="/plus.svg"
                     width={16}
                     height={16}
                     className="text-gray-900"
@@ -62,10 +62,13 @@ export default function Home() {
               </div>
             </div>
           </div>
+          <div className="flex flex-col gap-4">
+            <ShortAnsInput />
+          </div>
         </div>
       </main>
-      <footer className="fixed max-w-[40rem] w-full h-16 bottom-0 left-[25rem] border border-[#E1E4E8] ">
-        <div className="w-full h-full flex items-center justify-between  py-4 px-6 bg-gray-50 bg-opacity-90 backdrop-blur-sm">
+      <footer className="max-w-[40rem] w-full h-16 border border-[#E1E4E8] mx-auto">
+        <div className="w-full h-full flex items-center justify-between  py-4 px-2 sm:px-6 bg-gray-50 bg-opacity-90 backdrop-blur-sm">
           <button
             disabled
             className="rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center  gap-1"
@@ -77,7 +80,7 @@ export default function Home() {
               className="text-[#959DA5]"
               alt="Short Answer Icon "
             />
-            <span className="text-center text-sm font-semibold text-[#959DA5]">
+            <span className="text-center text-xs sm:text-sm font-semibold text-[#959DA5]">
               Save as Draft
             </span>
           </button>
@@ -92,7 +95,7 @@ export default function Home() {
               className="text-[#959DA5]"
               alt="Short Answer Icon "
             />
-            <span className="text-center text-sm font-semibold text-white">
+            <span className="text-center text-xs sm:text-sm font-semibold text-white">
               Publish form
             </span>
           </button>
