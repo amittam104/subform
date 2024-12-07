@@ -4,8 +4,11 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-function ShortAnsInput() {
+const singleSelectOptions = ["option-1", "option-2"];
+
+function SingleSelectInput() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
+  const [optionsArray, setOptionsArray] = useState(singleSelectOptions);
 
   return (
     <div className="w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
@@ -29,7 +32,7 @@ function ShortAnsInput() {
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="/shortAnswerIcon.svg"
+                src="/singleSelectIcon.svg"
                 alt="short answer icon"
                 width={20}
                 height={20}
@@ -55,16 +58,47 @@ function ShortAnsInput() {
             </div>
           </div>
         </div>
-        <div className="w-full h-auto gap-8">
-          <input
-            type="text"
-            disabled
-            className="rounded-lg text-sm border border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
-          />
+        <div className="w-full h-auto flex flex-col gap-2">
+          {optionsArray.map((option, i) => {
+            return (
+              <div className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  className="rounded-lg text-sm border-[1.5px] grow-0 border-[#6A737D] accent-[#219653] py-[6px] px-2  w-4 h-4 cursor-pointer"
+                />
+                <input
+                  type="text"
+                  placeholder={
+                    i + 1 === optionsArray.length &&
+                    `Option ${optionsArray.length}`
+                  }
+                  className="rounded-lg text-sm border grow border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
+                />
+                {i + 1 === optionsArray.length && (
+                  <button
+                    onClick={() =>
+                      setOptionsArray((cur) => [
+                        ...cur,
+                        `option-${optionsArray.length}`,
+                      ])
+                    }
+                  >
+                    <Image
+                      src="/plus.svg"
+                      width={16}
+                      height={16}
+                      className="text-gray-900 cursor-pointer"
+                      alt="Short Answer Icon "
+                    />
+                  </button>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
 
-export default ShortAnsInput;
+export default SingleSelectInput;

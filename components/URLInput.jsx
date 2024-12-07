@@ -4,7 +4,7 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-function ShortAnsInput() {
+function URLInput() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
 
   return (
@@ -14,7 +14,7 @@ function ShortAnsInput() {
           <div className="flex flex-col grow">
             <input
               type="text"
-              placeholder="Write a question"
+              placeholder="Link to your best work"
               className="text-sm text-[#0D0D0D] placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-semibold focus:ring-0 focus:outline-none flex-1"
             />
             <input
@@ -29,7 +29,7 @@ function ShortAnsInput() {
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="/shortAnswerIcon.svg"
+                src="/url.svg"
                 alt="short answer icon"
                 width={20}
                 height={20}
@@ -59,6 +59,7 @@ function ShortAnsInput() {
           <input
             type="text"
             disabled
+            placeholder="example.com"
             className="rounded-lg text-sm border border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
           />
         </div>
@@ -67,4 +68,4 @@ function ShortAnsInput() {
   );
 }
 
-export default ShortAnsInput;
+export default URLInput;

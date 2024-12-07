@@ -1,7 +1,11 @@
 "use client";
 
 import InputTypesDropdown from "@/components/InputTypesDropdown";
+import LongAnsInput from "@/components/LongAnsInput";
+import NumberInput from "@/components/NumberInput";
 import ShortAnsInput from "@/components/ShortAnsInput";
+import SingleSelectInput from "@/components/SingleSelectInput";
+import URLInput from "@/components/URLInput";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -15,7 +19,7 @@ export default function Home() {
         <div className="max-w-[40rem] h-14 border-r border-b border-l px-2 sm:px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
           <input
             type="text"
-            className="text-[#959DA5] text-sm sm:text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
+            className="placeholder:text-[#959DA5] text-[#0D0D0D] text-sm sm:text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
             value={formName}
             placeholder="Untitled form"
             onChange={(e) => setFormName(e.target.value)}
@@ -41,7 +45,14 @@ export default function Home() {
       <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
         <div className="w-full h-full flex flex-col gap-6">
           <div className="w-full h-auto px-6 pb-20 gap-14">
-            <div className="w-full h-auto pt-6 gap-8">
+            <div className="w-full h-auto pt-6 gap-8 flex flex-col">
+              <div className="flex flex-col gap-4">
+                <ShortAnsInput />
+                <LongAnsInput />
+                <SingleSelectInput />
+                <NumberInput />
+                <URLInput />
+              </div>
               <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
                 <button
                   onClick={() => setDisplayInputDropdown((cur) => !cur)}
@@ -58,12 +69,9 @@ export default function Home() {
                     Add Question
                   </span>
                 </button>
-                {displayInputDropdown && <InputTypesDropdown />}
+                {displayInputDropdown && <InputTypesDropdown type="primary" />}
               </div>
             </div>
-          </div>
-          <div className="flex flex-col gap-4">
-            <ShortAnsInput />
           </div>
         </div>
       </main>

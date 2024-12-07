@@ -4,7 +4,7 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-function ShortAnsInput() {
+function LongAnsInput() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
 
   return (
@@ -29,7 +29,7 @@ function ShortAnsInput() {
               className="flex items-center cursor-pointer"
             >
               <Image
-                src="/shortAnswerIcon.svg"
+                src="/longAnswerIcon.svg"
                 alt="short answer icon"
                 width={20}
                 height={20}
@@ -59,7 +59,7 @@ function ShortAnsInput() {
           <input
             type="text"
             disabled
-            className="rounded-lg text-sm border border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
+            className="rounded-lg text-sm border border-[#E1E4E8] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full h-20"
           />
         </div>
       </div>
@@ -67,4 +67,4 @@ function ShortAnsInput() {
   );
 }
 
-export default ShortAnsInput;
+export default LongAnsInput;
