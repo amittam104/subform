@@ -2,6 +2,7 @@
 
 import InputTypesDropdown from "@/components/InputTypesDropdown";
 import { ArrowUpRight, FilePenLine, Plus } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
@@ -11,10 +12,10 @@ export default function Home() {
   return (
     <div className="max-h-[1206px]">
       <header className="max-w-[90rem]">
-        <div className="max-w-[40rem] h-14 border-r border-b border-l px-6 flex justify-between items-center bg-white border-gray-200 mx-auto">
+        <div className="max-w-[40rem] h-14 border-r border-b border-l px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
           <input
             type="text"
-            className="text-gray-400 text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
+            className="text-[#959DA5] text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
             value={formName}
             placeholder="Untitled form"
             onChange={(e) => setFormName(e.target.value)}
@@ -22,12 +23,18 @@ export default function Home() {
 
           <button
             disabled
-            className="rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-gray-200 flex items-center gap-1"
+            className="rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1"
           >
-            <span className="text-center text-sm font-semibold text-gray-400">
+            <span className="text-center text-sm font-semibold text-[#959DA5]">
               Preview
             </span>
-            <ArrowUpRight size={16} className="text-gray-400" />
+            <Image
+              src="/upRightArrow.svg"
+              width={16}
+              height={16}
+              className="text-[#959DA5]"
+              alt="Short Answer Icon "
+            />
           </button>
         </div>
       </header>
@@ -38,9 +45,15 @@ export default function Home() {
               <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
                 <button
                   onClick={() => setDisplayInputDropdown((cur) => !cur)}
-                  className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-gray-200 flex items-center gap-1 shadow-bx"
+                  className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 shadow-bx"
                 >
-                  <Plus size={16} className="text-gray-900" />
+                  <Image
+                    src="/plusIcon.svg"
+                    width={16}
+                    height={16}
+                    className="text-gray-900"
+                    alt="Short Answer Icon "
+                  />
                   <span className="text-center text-sm font-semibold text-[#0D0D0D]">
                     Add Question
                   </span>
@@ -57,8 +70,14 @@ export default function Home() {
             disabled
             className="rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center  gap-1"
           >
-            <FilePenLine size={16} className="text-gray-400" />
-            <span className="text-center text-sm font-semibold text-gray-400">
+            <Image
+              src="/draft.svg"
+              width={16}
+              height={16}
+              className="text-[#959DA5]"
+              alt="Short Answer Icon "
+            />
+            <span className="text-center text-sm font-semibold text-[#959DA5]">
               Save as Draft
             </span>
           </button>
@@ -66,7 +85,13 @@ export default function Home() {
             disabled
             className="rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] opacity-50 flex items-center gap-1"
           >
-            <ArrowUpRight size={16} className="text-white" />
+            <Image
+              src="/check.svg"
+              width={16}
+              height={16}
+              className="text-[#959DA5]"
+              alt="Short Answer Icon "
+            />
             <span className="text-center text-sm font-semibold text-white">
               Publish form
             </span>
