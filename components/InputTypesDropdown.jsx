@@ -4,7 +4,7 @@ function InputTypesDropdown() {
   return (
     <div className="w-[300px] h-auto border border-[#E1E4E8] rounded-2xl p-1 gap-2 absolute top-10 shadow-dropdown">
       <div className="w-full h-full">
-        <div className="w-full h-9 bg-[#FAFBFC] py-2 px-4 rounded-lg">
+        <div className="w-full h-9 bg-[#FAFBFC] py-2 px-4 rounded-lg flex items-center">
           <p className="text-xs font-semibold text-[#6A737D]">INPUT TYPES</p>
         </div>
         <div className="w-full h-auto rounded-xl p-2 gap-8 flex items-center bg-white">
