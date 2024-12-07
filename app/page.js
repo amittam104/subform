@@ -1,10 +1,12 @@
 "use client";
 
+import InputTypesDropdown from "@/components/InputTypesDropdown";
 import { ArrowUpRight, FilePenLine, Plus } from "lucide-react";
 import { useState } from "react";
 
 export default function Home() {
   const [formName, setFormName] = useState();
+  const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
 
   return (
     <div className="max-h-[1206px]">
@@ -33,13 +35,17 @@ export default function Home() {
         <div className="w-full h-full gap-6">
           <div className="w-full h-auto px-6 pb-20 gap-14">
             <div className="w-full h-auto pt-6 gap-8">
-              <div className="w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
-                <button className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-gray-200 flex items-center gap-1 shadow-bx">
+              <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
+                <button
+                  onClick={() => setDisplayInputDropdown((cur) => !cur)}
+                  className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-gray-200 flex items-center gap-1 shadow-bx"
+                >
                   <Plus size={16} className="text-gray-900" />
                   <span className="text-center text-sm font-semibold text-[#0D0D0D]">
                     Add Question
                   </span>
                 </button>
+                {displayInputDropdown && <InputTypesDropdown />}
               </div>
             </div>
           </div>
