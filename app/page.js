@@ -1,15 +1,45 @@
 "use client";
 
 import InputTypesDropdown from "@/components/InputTypesDropdown";
+import LongAnsInput from "@/components/LongAnsInput";
+import NumberInput from "@/components/NumberInput";
+import ShortAnsInput from "@/components/ShortAnsInput";
+import SingleSelectInput from "@/components/SingleSelectInput";
+import URLInput from "@/components/URLInput";
 import Image from "next/image";
-import React, { useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 
-const inputBlocks = [];
+const componentMap = {
+  shortAnswer: ShortAnsInput,
+  longAnswer: LongAnsInput,
+  singleSelect: SingleSelectInput,
+  url: URLInput,
+  number: NumberInput,
+};
 
 export default function Home() {
-  const [formName, setFormName] = useState();
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
-  const [SelectInputType, setSelectInputType] = useState(inputBlocks);
+  const [SelectInputType, setSelectInputType] = useState([]);
+  const [formName, setFormName] = useState();
+
+  function handleDraftSave() {
+    if (!formName) {
+      alert("Please add a form name to save the draft");
+      return;
+    }
+
+    const formDraft = [...SelectInputType, formName];
+
+    try {
+      localStorage.setItem("formDraft", JSON.stringify(formDraft));
+      alert(`${formName} saved in draft. Please publish the form to fill it.`);
+    } catch (error) {
+      alert(
+        `Something went wrong while saving ${formName} form. Please try again!`
+      );
+    }
+  }
 
   return (
     <div className="max-h-screen flex flex-col">
@@ -22,32 +52,36 @@ export default function Home() {
             placeholder="Untitled form"
             onChange={(e) => setFormName(e.target.value)}
           />
-
-          <button
-            disabled={SelectInputType.length >= 1 ? false : true}
-            className={`rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
-              SelectInputType.length >= 1 ? "shadow-bx" : "shadow-none"
-            }`}
-          >
-            <span
-              className={`text-center text-xs sm:text-sm font-semibold ${
-                SelectInputType.length >= 1
-                  ? "text-[#0D0D0D]"
-                  : "text-[#959DA5]"
-              } `}
-            >
-              Preview
-            </span>
-            <Image
-              src="/upRightArrow.svg"
-              width={16}
-              height={16}
-              className={`${
-                SelectInputType.length >= 1 ? "opacity-100" : "opacity-40"
+          <Link href="/preview">
+            <button
+              disabled={
+                // localStorage.getItem("formDraft") ||
+                SelectInputType?.length >= 1 ? false : true
+              }
+              className={`rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
+                SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
               }`}
-              alt="Short Answer Icon "
-            />
-          </button>
+            >
+              <span
+                className={`text-center text-xs sm:text-sm font-semibold ${
+                  SelectInputType?.length >= 1
+                    ? "text-[#0D0D0D]"
+                    : "text-[#959DA5]"
+                } `}
+              >
+                Preview
+              </span>
+              <Image
+                src="/upRightArrow.svg"
+                width={16}
+                height={16}
+                className={`${
+                  SelectInputType?.length >= 1 ? "opacity-100" : "opacity-40"
+                }`}
+                alt="Short Answer Icon "
+              />
+            </button>
+          </Link>
         </div>
       </header>
       <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
@@ -55,14 +89,17 @@ export default function Home() {
           <div className="w-full h-auto px-6 pb-20 gap-14">
             <div className="w-full h-auto pt-6 gap-8 flex flex-col">
               <div className="flex flex-col gap-4">
-                {SelectInputType.map((input, index) => {
+                {SelectInputType?.map((inputData, index) => {
+                  const InputComponent = componentMap[inputData.type];
+
                   return (
                     <div key={index}>
-                      {React.cloneElement(input.component, {
-                        setSelectInputType,
-                        setDisplayInputDropdown,
-                        index: index,
-                      })}
+                      <InputComponent
+                        data={inputData}
+                        setSelectInputType={setSelectInputType}
+                        setDisplayInputDropdown={setDisplayInputDropdown}
+                        index={index}
+                      />
                     </div>
                   );
                 })}
@@ -98,9 +135,10 @@ export default function Home() {
       <footer className="max-w-[40rem] w-full h-16 border border-[#E1E4E8] mx-auto">
         <div className="w-full h-full flex items-center justify-between  py-4 px-2 sm:px-6 bg-gray-50 bg-opacity-90 backdrop-blur-sm">
           <button
-            disabled={SelectInputType.length >= 1 ? false : true}
+            disabled={SelectInputType?.length >= 1 ? false : true}
+            onClick={() => handleDraftSave()}
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 ${
-              SelectInputType.length >= 1 ? "shadow-bx" : "shadow-none"
+              SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
             }`}
           >
             <Image
@@ -108,13 +146,13 @@ export default function Home() {
               width={16}
               height={16}
               className={`${
-                SelectInputType.length >= 1 ? "opacity-100" : "opacity-40"
+                SelectInputType?.length >= 1 ? "opacity-100" : "opacity-40"
               }`}
               alt="Short Answer Icon "
             />
             <span
               className={`text-center text-xs sm:text-sm font-semibold ${
-                SelectInputType.length >= 1
+                SelectInputType?.length >= 1
                   ? "text-[#0D0D0D]"
                   : "text-[#959DA5]"
               }`}
@@ -123,11 +161,11 @@ export default function Home() {
             </span>
           </button>
           <button
-            disabled={SelectInputType.length >= 1 ? false : true}
+            disabled={SelectInputType?.length >= 1 ? false : true}
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
-              SelectInputType.length >= 1 ? "opacity-100" : "opacity-50"
+              SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${
-              SelectInputType.length >= 1 ? "shadow-publish" : "shadow-none"
+              SelectInputType?.length >= 1 ? "shadow-publish" : "shadow-none"
             } flex items-center gap-1`}
           >
             <Image

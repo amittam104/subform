@@ -1,35 +1,35 @@
 import Image from "next/image";
-import ShortAnsInput from "./ShortAnsInput";
-import LongAnsInput from "./LongAnsInput";
-import SingleSelectInput from "./SingleSelectInput";
-import URLInput from "./URLInput";
-import NumberInput from "./NumberInput";
 
 const inputTypes = [
   {
     img: "/shortAnswerIcon.svg",
+    type: "shortAnswer",
     name: "Short answer",
-    component: (props) => <ShortAnsInput {...props} />,
+    // component: (props) => <ShortAnsInput {...props} />,
   },
   {
     img: "/longAnswerIcon.svg",
+    type: "longAnswer",
     name: "Long answer",
-    component: (props) => <LongAnsInput {...props} />,
+    // component: (props) => <LongAnsInput {...props} />,
   },
   {
     img: "/singleSelectIcon.svg",
+    type: "singleSelect",
     name: "Single select",
-    component: (props) => <SingleSelectInput {...props} />,
+    // component: (props) => <SingleSelectInput {...props} />,
   },
   {
     img: "/urlIcon.svg",
+    type: "url",
     name: "URL",
-    component: (props) => <URLInput {...props} />,
+    // component: (props) => <URLInput {...props} />,
   },
   {
-    img: "/dateIcon.svg",
-    name: "Date",
-    component: (props) => <NumberInput {...props} />,
+    img: "/hashtag.svg",
+    type: "number",
+    name: "Number",
+    // component: (props) => <NumberInput {...props} />,
   },
 ];
 
@@ -39,6 +39,37 @@ function InputTypesDropdown({
   setDisplayInputDropdown,
   index,
 }) {
+  function handleInputSelect(inputType) {
+    setDisplayInputDropdown(false);
+
+    if (type === "secondary") {
+      setSelectInputType((curInputs) => {
+        const newInputs = [...curInputs];
+
+        newInputs[index] = {
+          type: inputType.type,
+          name: inputType.name,
+          question: "",
+          helpText: "",
+          required: false,
+        };
+
+        return newInputs;
+      });
+    } else {
+      setSelectInputType((cur) => [
+        ...cur,
+        {
+          type: inputType.type,
+          name: inputType.name,
+          question: "",
+          helpText: "",
+          required: false,
+        },
+      ]);
+    }
+  }
+
   return (
     <div
       className={`${
@@ -56,42 +87,43 @@ function InputTypesDropdown({
           return (
             <div
               key={input.name}
-              onClick={() => {
-                setDisplayInputDropdown(false);
+              // onClick={() => {
+              //   setDisplayInputDropdown(false);
 
-                if (type === "secondary") {
-                  setSelectInputType((curInputs) => {
-                    const newInputs = [...curInputs];
+              //   if (type === "secondary") {
+              //     setSelectInputType((curInputs) => {
+              //       const newInputs = [...curInputs];
 
-                    newInputs[index] = {
-                      name: input.name,
-                      component: (
-                        <input.component
-                          setDisplayInputDropdown={setDisplayInputDropdown}
-                          setSelectInputType={setSelectInputType}
-                          index={index}
-                        />
-                      ),
-                    };
+              //       newInputs[index] = {
+              //         name: input.name,
+              //         component: (
+              //           <input.component
+              //             setDisplayInputDropdown={setDisplayInputDropdown}
+              //             setSelectInputType={setSelectInputType}
+              //             index={index}
+              //           />
+              //         ),
+              //       };
 
-                    return newInputs;
-                  });
-                } else {
-                  setSelectInputType((cur) => {
-                    return [
-                      ...cur,
-                      {
-                        name: input.name,
-                        component: input.component({
-                          setDisplayInputDropdown,
-                          setSelectInputType,
-                          index,
-                        }),
-                      },
-                    ];
-                  });
-                }
-              }}
+              //       return newInputs;
+              //     });
+              //   } else {
+              //     setSelectInputType((cur) => {
+              //       return [
+              //         ...cur,
+              //         {
+              //           name: input.name,
+              //           component: input.component({
+              //             setDisplayInputDropdown,
+              //             setSelectInputType,
+              //             index,
+              //           }),
+              //         },
+              //       ];
+              //     });
+              //   }
+              // }}
+              onClick={() => handleInputSelect(input)}
               className="w-full h-auto rounded-xl p-2 gap-8 flex items-center bg-white hover:bg-[#FAFBFC] cursor-pointer"
             >
               <div className="w-full h-auto flex items-center gap-2">

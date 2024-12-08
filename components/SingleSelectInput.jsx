@@ -6,10 +6,26 @@ import { useState } from "react";
 
 const singleSelectOptions = ["option-1", "option-2"];
 
-function SingleSelectInput({ index, ...props }) {
+function SingleSelectInput({ data, index, setSelectInputType, ...props }) {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
   const [optionsArray, setOptionsArray] = useState(singleSelectOptions);
-  const [inputQuestion, setInputQuestion] = useState("");
+  // const [inputQuestion, setInputQuestion] = useState("");
+
+  function updateQuestion(newQuestion) {
+    setSelectInputType((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, question: newQuestion } : item
+      )
+    );
+  }
+
+  const updateHelpText = (newHelpText) => {
+    setSelectInputType((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, helpText: newHelpText } : item
+      )
+    );
+  };
 
   return (
     <div className="w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
@@ -19,12 +35,14 @@ function SingleSelectInput({ index, ...props }) {
             <input
               type="text"
               placeholder="Write a question"
-              value={inputQuestion}
-              onChange={(e) => setInputQuestion(e.target.value)}
+              value={data.question}
+              onChange={(e) => updateQuestion(e.target.value)}
               className="text-sm text-[#0D0D0D] placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-semibold focus:ring-0 focus:outline-none flex-1"
             />
             <input
               type="text"
+              value={data.helpText}
+              onChange={(e) => updateHelpText(e.target.value)}
               placeholder="Write a help text or caption (leave empty if not needed)"
               className="text-xs text-[#0D0D0D] placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-normal focus:ring-0 focus:outline-none flex-1"
             />
@@ -49,7 +67,12 @@ function SingleSelectInput({ index, ...props }) {
                 className="opacity-50"
               />
               {displayInputDropdown && (
-                <InputTypesDropdown type="secondary" {...props} index={index} />
+                <InputTypesDropdown
+                  type="secondary"
+                  setSelectInputType={setSelectInputType}
+                  setDisplayInputDropdown={setDisplayInputDropdown}
+                  index={index}
+                />
               )}
             </div>
             <div className="cursor-grab rounded-full border border-transparent hover:border-[#E1E4E8] p-1">
@@ -73,7 +96,7 @@ function SingleSelectInput({ index, ...props }) {
                 />
                 <input
                   type="text"
-                  disabled={!inputQuestion ? true : false}
+                  disabled={!data.question ? true : false}
                   placeholder={
                     i + 1 === optionsArray.length &&
                     `Option ${optionsArray.length}`
