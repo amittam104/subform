@@ -1,17 +1,15 @@
 "use client";
 
 import InputTypesDropdown from "@/components/InputTypesDropdown";
-import LongAnsInput from "@/components/LongAnsInput";
-import NumberInput from "@/components/NumberInput";
-import ShortAnsInput from "@/components/ShortAnsInput";
-import SingleSelectInput from "@/components/SingleSelectInput";
-import URLInput from "@/components/URLInput";
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+
+const inputBlocks = [];
 
 export default function Home() {
   const [formName, setFormName] = useState();
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
+  const [SelectInputType, setSelectInputType] = useState(inputBlocks);
 
   return (
     <div className="max-h-screen flex flex-col">
@@ -47,11 +45,17 @@ export default function Home() {
           <div className="w-full h-auto px-6 pb-20 gap-14">
             <div className="w-full h-auto pt-6 gap-8 flex flex-col">
               <div className="flex flex-col gap-4">
-                <ShortAnsInput />
-                <LongAnsInput />
-                <SingleSelectInput />
-                <NumberInput />
-                <URLInput />
+                {SelectInputType.map((input, index) => {
+                  return (
+                    <div key={index}>
+                      {React.cloneElement(input.component, {
+                        setSelectInputType,
+                        setDisplayInputDropdown,
+                        index: index,
+                      })}
+                    </div>
+                  );
+                })}
               </div>
               <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
                 <button
@@ -69,7 +73,13 @@ export default function Home() {
                     Add Question
                   </span>
                 </button>
-                {displayInputDropdown && <InputTypesDropdown type="primary" />}
+                {displayInputDropdown && (
+                  <InputTypesDropdown
+                    type="primary"
+                    setSelectInputType={setSelectInputType}
+                    setDisplayInputDropdown={setDisplayInputDropdown}
+                  />
+                )}
               </div>
             </div>
           </div>

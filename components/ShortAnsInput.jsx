@@ -4,7 +4,7 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-function ShortAnsInput() {
+function ShortAnsInput({ index, ...props }) {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
   const [inputQuestion, setInputQuestion] = useState("");
 
@@ -45,7 +45,9 @@ function ShortAnsInput() {
                 height={16}
                 className="opacity-50"
               />
-              {displayInputDropdown && <InputTypesDropdown type="secondary" />}
+              {displayInputDropdown && (
+                <InputTypesDropdown type="secondary" {...props} index={index} />
+              )}
             </div>
             <div className="cursor-grab rounded-full border border-transparent hover:border-[#E1E4E8] p-1">
               <Image

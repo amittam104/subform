@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const singleSelectOptions = ["option-1", "option-2"];
 
-function SingleSelectInput() {
+function SingleSelectInput({ index, ...props }) {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
   const [optionsArray, setOptionsArray] = useState(singleSelectOptions);
   const [inputQuestion, setInputQuestion] = useState("");
@@ -48,7 +48,9 @@ function SingleSelectInput() {
                 height={16}
                 className="opacity-50"
               />
-              {displayInputDropdown && <InputTypesDropdown type="secondary" />}
+              {displayInputDropdown && (
+                <InputTypesDropdown type="secondary" {...props} index={index} />
+              )}
             </div>
             <div className="cursor-grab rounded-full border border-transparent hover:border-[#E1E4E8] p-1">
               <Image
