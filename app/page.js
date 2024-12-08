@@ -43,7 +43,7 @@ export default function Home() {
               width={16}
               height={16}
               className={`${
-                SelectInputType.length >= 1 ? "opacity-100" : "opacity-50"
+                SelectInputType.length >= 1 ? "opacity-100" : "opacity-40"
               }`}
               alt="Short Answer Icon "
             />
@@ -98,23 +98,37 @@ export default function Home() {
       <footer className="max-w-[40rem] w-full h-16 border border-[#E1E4E8] mx-auto">
         <div className="w-full h-full flex items-center justify-between  py-4 px-2 sm:px-6 bg-gray-50 bg-opacity-90 backdrop-blur-sm">
           <button
-            disabled={inputBlocks.length >= 1 ? false : true}
-            className="rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center  gap-1"
+            disabled={SelectInputType.length >= 1 ? false : true}
+            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 ${
+              SelectInputType.length >= 1 ? "shadow-bx" : "shadow-none"
+            }`}
           >
             <Image
               src="/draft.svg"
               width={16}
               height={16}
-              className="text-[#959DA5]"
+              className={`${
+                SelectInputType.length >= 1 ? "opacity-100" : "opacity-40"
+              }`}
               alt="Short Answer Icon "
             />
-            <span className="text-center text-xs sm:text-sm font-semibold text-[#959DA5]">
+            <span
+              className={`text-center text-xs sm:text-sm font-semibold ${
+                SelectInputType.length >= 1
+                  ? "text-[#0D0D0D]"
+                  : "text-[#959DA5]"
+              }`}
+            >
               Save as Draft
             </span>
           </button>
           <button
-            disabled
-            className="rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] opacity-50 flex items-center gap-1"
+            disabled={SelectInputType.length >= 1 ? false : true}
+            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
+              SelectInputType.length >= 1 ? "opacity-100" : "opacity-50"
+            } ${
+              SelectInputType.length >= 1 ? "shadow-publish" : "shadow-none"
+            } flex items-center gap-1`}
           >
             <Image
               src="/check.svg"
