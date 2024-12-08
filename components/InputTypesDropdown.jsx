@@ -9,7 +9,7 @@ const inputTypes = [
   {
     img: "/shortAnswerIcon.svg",
     name: "Short answer",
-    component: (props) => <ShortAnsInput {...props} index={0} />,
+    component: (props) => <ShortAnsInput {...props} />,
   },
   {
     img: "/longAnswerIcon.svg",
@@ -65,7 +65,13 @@ function InputTypesDropdown({
 
                     newInputs[index] = {
                       name: input.name,
-                      component: <input.component />,
+                      component: (
+                        <input.component
+                          setDisplayInputDropdown={setDisplayInputDropdown}
+                          setSelectInputType={setSelectInputType}
+                          index={index}
+                        />
+                      ),
                     };
 
                     return newInputs;
@@ -79,6 +85,7 @@ function InputTypesDropdown({
                         component: input.component({
                           setDisplayInputDropdown,
                           setSelectInputType,
+                          index,
                         }),
                       },
                     ];
