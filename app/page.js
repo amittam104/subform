@@ -8,6 +8,7 @@ import SingleSelectInput from "@/components/SingleSelectInput";
 import URLInput from "@/components/URLInput";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const componentMap = {
@@ -19,9 +20,33 @@ const componentMap = {
 };
 
 export default function Home() {
+  const router = useRouter();
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
-  const [SelectInputType, setSelectInputType] = useState([]);
-  const [formName, setFormName] = useState();
+  const [SelectInputType, setSelectInputType] = useState(() => {
+    try {
+      const savedForm = localStorage.getItem("formDraft");
+      if (!savedForm) return [];
+
+      const parsedForm = JSON.parse(savedForm);
+
+      return Array.isArray(parsedForm) ? parsedForm.slice(0, -1) : [];
+    } catch (error) {
+      console.error("Error loading form draft:", error);
+      return [];
+    }
+  });
+  const [formName, setFormName] = useState(() => {
+    try {
+      const savedForm = localStorage.getItem("formDraft");
+      if (!savedForm) return "";
+
+      const parsedForm = JSON.parse(savedForm);
+      // Get the last item as formName
+      return Array.isArray(parsedForm) ? parsedForm[parsedForm.length - 1] : "";
+    } catch (error) {
+      return "";
+    }
+  });
 
   function handleDraftSave() {
     if (!formName) {
@@ -34,6 +59,31 @@ export default function Home() {
     try {
       localStorage.setItem("formDraft", JSON.stringify(formDraft));
       alert(`${formName} saved in draft. Please publish the form to fill it.`);
+    } catch (error) {
+      alert(
+        `Something went wrong while saving ${formName} form. Please try again!`
+      );
+    }
+  }
+
+  function handlePublishForm() {
+    if (!formName) {
+      alert("Please add a form name to publish the form");
+      return;
+    }
+
+    const savedDraft = localStorage.getItem("formDraft");
+
+    if (savedDraft) {
+      router.push("/submit-form");
+      return;
+    }
+
+    const formDraft = [...SelectInputType, formName];
+
+    try {
+      localStorage.setItem("formDraft", JSON.stringify(formDraft));
+      router.push("/submit-form");
     } catch (error) {
       alert(
         `Something went wrong while saving ${formName} form. Please try again!`
@@ -162,6 +212,7 @@ export default function Home() {
           </button>
           <button
             disabled={SelectInputType?.length >= 1 ? false : true}
+            onClick={() => handlePublishForm()}
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
               SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${

@@ -3,11 +3,9 @@
 import PreviewFormDraft from "@/components/previewFormDraft";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function page() {
-  const router = useRouter();
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState();
 
@@ -33,16 +31,7 @@ function page() {
     }
   }, []);
 
-  function handlePublishForm() {
-    if (!formName) {
-      alert("Please add a form name to publish the form");
-      return;
-    }
-
-    router.push("/submit-form");
-
-    return;
-  }
+  // console.log(formName);
 
   return (
     <div className="max-h-screen flex flex-col">
@@ -125,7 +114,7 @@ function page() {
             </span>
           </button>
           <button
-            onClick={() => handlePublishForm()}
+            disabled
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
               SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${
