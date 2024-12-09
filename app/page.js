@@ -24,6 +24,7 @@ export default function Home() {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState("");
+  const [formSubmitAttempted, setFormSubmitAttempted] = useState(false);
 
   useEffect(function () {
     try {
@@ -51,6 +52,15 @@ export default function Home() {
       return;
     }
 
+    const blankQuestion = SelectInputType.find((type) => type.question === "");
+
+    if (blankQuestion !== undefined) {
+      setFormSubmitAttempted(true);
+      return alert(
+        "Please fill all the input types with a question or a sentence."
+      );
+    }
+
     const formDraft = [...SelectInputType, formName];
 
     try {
@@ -67,6 +77,15 @@ export default function Home() {
     if (!formName) {
       alert("Please add a form name to publish the form");
       return;
+    }
+
+    const blankQuestion = SelectInputType.find((type) => type.question === "");
+
+    if (blankQuestion !== undefined) {
+      setFormSubmitAttempted(true);
+      return alert(
+        "Please fill all the input types with a question or a sentence."
+      );
     }
 
     const savedDraft = localStorage.getItem("formDraft");
@@ -87,6 +106,8 @@ export default function Home() {
       );
     }
   }
+
+  console.log(SelectInputType);
 
   return (
     <div className="max-h-screen flex flex-col">
@@ -146,6 +167,7 @@ export default function Home() {
                         setSelectInputType={setSelectInputType}
                         setDisplayInputDropdown={setDisplayInputDropdown}
                         index={index}
+                        isSubmitAttempted={formSubmitAttempted}
                       />
                     </div>
                   );

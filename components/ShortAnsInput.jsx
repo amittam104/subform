@@ -4,7 +4,13 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-function ShortAnsInput({ data, index, setSelectInputType, ...props }) {
+function ShortAnsInput({
+  data,
+  index,
+  setSelectInputType,
+  isSubmitAttempted,
+  ...props
+}) {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
   // const [inputQuestion, setInputQuestion] = useState("");
 
@@ -34,7 +40,11 @@ function ShortAnsInput({ data, index, setSelectInputType, ...props }) {
               placeholder="Write a question"
               value={data.question}
               onChange={(e) => updateQuestion(e.target.value)}
-              className="text-sm text-[#0D0D0D] placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-semibold focus:ring-0 focus:outline-none flex-1"
+              className={`text-sm text-[#0D0D0D] ${
+                data.question === "" &&
+                isSubmitAttempted &&
+                "placeholder:text-[#EB5757]"
+              } placeholder:text-[#959DA5] group-hover:bg-[#FAFBFC] font-semibold focus:ring-0 focus:outline-none flex-1`}
             />
             <input
               type="text"
