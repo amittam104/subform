@@ -1,6 +1,6 @@
 "use client";
 
-import PreviewFormDraft from "@/components/previewFormDraft";
+import PreviewFormDraft from "@/components/PreviewFormDraft";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
