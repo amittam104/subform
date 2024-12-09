@@ -4,12 +4,10 @@ import Image from "next/image";
 import InputTypesDropdown from "./InputTypesDropdown";
 import { useState } from "react";
 
-const singleSelectOptions = ["option-1", "option-2"];
-
 function SingleSelectInput({ data, index, setSelectInputType, ...props }) {
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
-  const [optionsArray, setOptionsArray] = useState(singleSelectOptions);
-  // const [inputQuestion, setInputQuestion] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [localOptions, setLocalOptions] = useState(["", ""]);
 
   function updateQuestion(newQuestion) {
     setSelectInputType((prev) =>
@@ -26,6 +24,29 @@ function SingleSelectInput({ data, index, setSelectInputType, ...props }) {
       )
     );
   };
+
+  function updateOptions(newOption, optionIndex) {
+    setLocalOptions((prev) => {
+      const newOptions = prev.map((opt, i) =>
+        i === optionIndex ? newOption : opt
+      );
+
+      return newOptions;
+    });
+
+    setSelectInputType((prev) =>
+      prev.map((item, i) =>
+        i === index
+          ? {
+              ...item,
+              options: localOptions.map((opt, j) =>
+                j === optionIndex ? newOption : opt
+              ),
+            }
+          : item
+      )
+    );
+  }
 
   return (
     <div className="w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
@@ -87,30 +108,30 @@ function SingleSelectInput({ data, index, setSelectInputType, ...props }) {
           </div>
         </div>
         <div className="w-full h-auto flex flex-col gap-2">
-          {optionsArray.map((option, i) => {
+          {localOptions.map((option, i) => {
             return (
-              <div className="flex items-center gap-2">
+              <div key={i} className="flex items-center gap-2">
                 <input
                   type="radio"
+                  name={`question-${index}`}
+                  checked={selectedOption === i}
+                  onChange={() => setSelectedOption(i)}
                   className="rounded-lg text-sm border-[1.5px] grow-0 border-[#6A737D] accent-[#219653] py-[6px] px-2  w-4 h-4 cursor-pointer"
                 />
                 <input
                   type="text"
+                  value={option}
+                  onChange={(e) => updateOptions(e.target.value, i)}
                   disabled={!data.question ? true : false}
                   placeholder={
-                    i + 1 === optionsArray.length &&
-                    `Option ${optionsArray.length}`
+                    i + 1 === localOptions.length &&
+                    `Option ${localOptions.length}`
                   }
                   className="rounded-lg text-sm border grow border-[#E1E4E8] focus:outline-[#219653] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
                 />
-                {i + 1 === optionsArray.length && (
+                {i + 1 === localOptions.length && (
                   <button
-                    onClick={() =>
-                      setOptionsArray((cur) => [
-                        ...cur,
-                        `option-${optionsArray.length}`,
-                      ])
-                    }
+                    onClick={() => setLocalOptions((cur) => [...cur, ``])}
                   >
                     <Image
                       src="/plus.svg"

@@ -5,31 +5,26 @@ const inputTypes = [
     img: "/shortAnswerIcon.svg",
     type: "shortAnswer",
     name: "Short answer",
-    // component: (props) => <ShortAnsInput {...props} />,
   },
   {
     img: "/longAnswerIcon.svg",
     type: "longAnswer",
     name: "Long answer",
-    // component: (props) => <LongAnsInput {...props} />,
   },
   {
     img: "/singleSelectIcon.svg",
     type: "singleSelect",
     name: "Single select",
-    // component: (props) => <SingleSelectInput {...props} />,
   },
   {
     img: "/urlIcon.svg",
     type: "url",
     name: "URL",
-    // component: (props) => <URLInput {...props} />,
   },
   {
     img: "/hashtag.svg",
     type: "number",
     name: "Number",
-    // component: (props) => <NumberInput {...props} />,
   },
 ];
 
@@ -52,6 +47,7 @@ function InputTypesDropdown({
           question: "",
           helpText: "",
           required: false,
+          options: inputType.type === "singleSelect" ? [] : undefined,
         };
 
         return newInputs;
@@ -65,6 +61,7 @@ function InputTypesDropdown({
           question: "",
           helpText: "",
           required: false,
+          options: inputType.type === "singleSelect" ? [] : undefined,
         },
       ]);
     }
