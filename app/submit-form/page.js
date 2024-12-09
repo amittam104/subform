@@ -1,17 +1,22 @@
 "use client";
 
-import PreviewFormDraft from "@/components/previewFormDraft";
-import Image from "next/image";
-import Link from "next/link";
+import SubmitForm from "@/components/SubmitForm";
 import { useEffect, useState } from "react";
 
 function page() {
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState();
+  const [formValues, setFormValues] = useState({});
+  const [completeness, setCompleteness] = useState();
+  const [completenessBar, setCompletenessBar] = useState(0);
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   useEffect(function () {
     try {
-      const formDraft = JSON.parse(localStorage.getItem("formDraft"));
+      let formDraft;
+      if (typeof window !== "undefined") {
+        formDraft = JSON.parse(localStorage.getItem("formDraft"));
+      }
 
       if (!formDraft) {
         alert(
@@ -31,109 +36,87 @@ function page() {
     }
   }, []);
 
-  // console.log(formName);
+  function handleInputChange(index, value) {
+    setFormValues((prev) => {
+      const newValues = { ...prev, [index]: value };
+
+      const filledFields = Object.values(newValues).filter(
+        (value) => value && value.trim !== ""
+      ).length;
+      const totalFormFields = SelectInputType.length;
+      const completenessPercent = (filledFields / totalFormFields) * 100;
+      setCompleteness(completenessPercent);
+
+      const completenessBarWidth = (completenessPercent / 100) * 300;
+      setCompletenessBar(completenessBarWidth);
+
+      return newValues;
+    });
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    try {
+      localStorage.setItem("SubmittedForm", JSON.stringify(formValues));
+
+      setFormSubmitted(true);
+    } catch (error) {
+      alert("Something went wrong while submitting the form");
+    }
+  }
+
+  console.log(formValues);
 
   return (
     <div className="max-h-screen flex flex-col">
       <header className="max-w-[90rem]">
         <div className="max-w-[40rem] h-14 border-r border-b border-l px-2 sm:px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
-          <input
-            type="text"
-            className="placeholder:text-[#959DA5] text-[#0D0D0D] text-sm sm:text-base leading-6 font-semibold focus:ring-0 focus:outline-none"
-            value={formName}
-            placeholder="Untitled form"
-            // onChange={(e) => setFormName(e.target.value)}
-          />
-          <Link href="/">
-            <button
-              className={`rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
-                SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
-              }`}
-            >
-              <span
-                className={`text-center text-xs sm:text-sm font-semibold ${
-                  SelectInputType?.length >= 1
-                    ? "text-[#0D0D0D]"
-                    : "text-[#959DA5]"
-                } `}
+          <p className="text-[#0D0D0D] text-sm sm:text-base leading-6 font-semibold">
+            {formName}
+          </p>
+          <div className="flex flex-col items-end gap-2">
+            <p className="text-sm font-normal text-[#0D0D0D]">
+              Form completeness — <span>{completeness || 0}%</span>
+            </p>
+            <div className="w-[300px] h-1 bg-[#E1E4E8] rounded relative">
+              <div
+                style={{ width: `${completenessBar}px` || 0 }}
+                className={`h-full  absolute inset-0 rounded bg-[#00AA45]`}
               >
-                Back
-              </span>
-              <Image
-                src="/upRightArrow.svg"
-                width={16}
-                height={16}
-                className={`${
-                  SelectInputType?.length >= 1 ? "opacity-100" : "opacity-40"
-                }`}
-                alt="Short Answer Icon "
-              />
-            </button>
-          </Link>
-        </div>
-      </header>
-      <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
-        <div className="w-full h-full flex flex-col gap-6">
-          <div className="w-full h-auto px-6 pb-20 gap-14">
-            <div className="w-full h-auto pt-6 gap-8 flex flex-col">
-              <div className="flex flex-col gap-8">
-                {SelectInputType?.map((inputData, index) => {
-                  return <PreviewFormDraft key={index} data={inputData} />;
-                })}
+                &nbsp;
               </div>
             </div>
           </div>
         </div>
-      </main>
-      <footer className="max-w-[40rem] w-full h-16 border border-[#E1E4E8] mx-auto">
-        <div className="w-full h-full flex items-center justify-between  py-4 px-2 sm:px-6 bg-gray-50 bg-opacity-90 backdrop-blur-sm">
+      </header>
+      <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
+        <form
+          onSubmit={(e) => handleFormSubmit(e)}
+          className="w-full h-full flex flex-col p-6 gap-10"
+        >
+          <div className="flex flex-col gap-8">
+            {SelectInputType?.map((inputData, index) => {
+              return (
+                <SubmitForm
+                  key={index}
+                  data={inputData}
+                  handleInputChange={handleInputChange}
+                  index={index}
+                />
+              );
+            })}
+          </div>
           <button
-            disabled
-            onClick={() => handleDraftSave()}
-            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center opacity-50 gap-1 ${
-              SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
-            }`}
+            disabled={completeness !== 100}
+            type="submit"
+            className={`rounded-xl place-self-end border py-[6px] px-4 bg-[#219653] border-[#1E874B] hover:shadow-publish flex items-center gap-1`}
           >
-            <Image
-              src="/draft.svg"
-              width={16}
-              height={16}
-              className={`${
-                SelectInputType?.length >= 1 ? "opacity-100" : "opacity-40"
-              }`}
-              alt="Short Answer Icon "
-            />
-            <span
-              className={`text-center text-xs sm:text-sm font-semibold ${
-                SelectInputType?.length >= 1
-                  ? "text-[#0D0D0D]"
-                  : "text-[#959DA5]"
-              }`}
-            >
-              Save as Draft
-            </span>
-          </button>
-          <button
-            disabled
-            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
-              SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
-            } ${
-              SelectInputType?.length >= 1 ? "shadow-publish" : "shadow-none"
-            } flex items-center gap-1`}
-          >
-            <Image
-              src="/check.svg"
-              width={16}
-              height={16}
-              className="text-[#959DA5]"
-              alt="Short Answer Icon "
-            />
             <span className="text-center text-xs sm:text-sm font-semibold text-white">
-              Publish form
+              {formSubmitted ? "Form Submitted Successfully!" : "Submit"}
             </span>
           </button>
-        </div>
-      </footer>
+        </form>
+      </main>
     </div>
   );
 }
