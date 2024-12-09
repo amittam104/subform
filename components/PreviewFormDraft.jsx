@@ -30,7 +30,9 @@ function PreviewFormDraft({ data }) {
                 name={`preview-option-${index}`}
                 className="rounded-lg text-sm border-[1.5px] grow-0 border-[#6A737D] hover:shadow-bx transition-shadow ease-in-out delay-100 accent-[#219653] py-[6px] px-2  w-4 h-4 cursor-pointer"
               />
-              <p className="text-sm grow w-full font-medium">{option}</p>
+              <p className="text-sm grow w-full font-medium text-[#0D0D0D]">
+                {option}
+              </p>
             </div>
           );
         })}
