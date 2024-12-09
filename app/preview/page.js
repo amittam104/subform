@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-function page() {
+function Page() {
   const router = useRouter();
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState();
@@ -61,7 +61,9 @@ function page() {
           <Link href="/">
             <button
               className={`rounded-xl border py-[6px] sm:pr-[14px] pr-4 pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
-                SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
+                SelectInputType?.length >= 1
+                  ? "shadow-bx hover:shadow-bxH transition-shadow ease-in-out delay-100"
+                  : "shadow-none"
               }`}
             >
               <span
@@ -132,7 +134,9 @@ function page() {
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
               SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${
-              SelectInputType?.length >= 1 ? "shadow-publish" : "shadow-none"
+              SelectInputType?.length >= 1
+                ? "shadow-publish hover:shadow-publishH transition-shadow ease-in-out delay-100"
+                : "shadow-none"
             } flex items-center gap-1`}
           >
             <Image
@@ -152,4 +156,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

@@ -16,7 +16,7 @@ function SubmitForm({ data, handleInputChange, index }) {
         type="text"
         value={inputValue}
         onChange={(e) => handleValueChange(e.target.value)}
-        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
+        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx transition-shadow ease-in-out delay-100 placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
       />
     ),
     longAnswer: (
@@ -24,7 +24,7 @@ function SubmitForm({ data, handleInputChange, index }) {
         type="text"
         value={inputValue}
         onChange={(e) => handleValueChange(e.target.value)}
-        className="rounded-lg text-sm border border-[#E1E4E8] resize-none py-[6px] focus:outline-[#219653] px-2 w-full h-20"
+        className="rounded-lg text-sm border border-[#E1E4E8] hover:shadow-bx transition-shadow ease-in-out delay-100 resize-none py-[6px] focus:outline-[#219653] px-2 w-full h-20"
       />
     ),
     singleSelect: (
@@ -37,7 +37,7 @@ function SubmitForm({ data, handleInputChange, index }) {
                 checked={inputValue === option}
                 onChange={() => handleValueChange(option)}
                 name={`preview-option-${index}`}
-                className="rounded-lg text-sm border-[1.5px] grow-0 border-[#6A737D] accent-[#219653] py-[6px] px-2  w-4 h-4 cursor-pointer"
+                className="rounded-lg text-sm border-[1.5px] grow-0 border-[#6A737D] hover:shadow-bx transition-shadow ease-in-out delay-100 accent-[#219653] py-[6px] px-2  w-4 h-4 cursor-pointer"
               />
               <p className="text-sm grow w-full font-medium">{option}</p>
             </div>
@@ -50,7 +50,7 @@ function SubmitForm({ data, handleInputChange, index }) {
         type="number"
         value={inputValue}
         onChange={(e) => handleValueChange(e.target.value)}
-        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
+        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx transition-shadow ease-in-out delay-100 placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
       />
     ),
     url: (
@@ -58,7 +58,7 @@ function SubmitForm({ data, handleInputChange, index }) {
         type="url"
         value={inputValue}
         onChange={(e) => handleValueChange(e.target.value)}
-        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
+        className="w-full text-sm h-auto rounded-lg border py-[6px] px-2 gap-1 bg-white border-[#E1E4E8] hover:shadow-bx transition-shadow ease-in-out delay-100 placeholder:text-[#959DA5] text-[#0D0D0D] focus:outline-[#219653]"
       />
     ),
   };

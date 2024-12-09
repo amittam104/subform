@@ -97,7 +97,7 @@ function LongAnsInput({
           <textarea
             type="text"
             disabled={!data.question ? true : false}
-            className="rounded-lg text-sm border border-[#E1E4E8] resize-none py-[6px] focus:outline-[#219653] px-2 disabled:bg-[#F6F8FA] w-full h-20"
+            className="rounded-lg text-sm border border-[#E1E4E8] resize-none py-[6px] focus:outline-[#219653] hover:shadow-bxH transition-shadow ease-in-out delay-100 px-2 disabled:bg-[#F6F8FA] w-full h-20"
           />
         </div>
       </div>

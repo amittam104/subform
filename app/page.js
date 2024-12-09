@@ -126,8 +126,10 @@ export default function Home() {
                 // localStorage.getItem("formDraft") ||
                 SelectInputType?.length >= 1 ? false : true
               }
-              className={`rounded-xl border py-[6px] sm:pr-[14px] pr-4 pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
-                SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
+              className={`rounded-xl border py-[6px] sm:pr-[14px] pr-4 pl-4 bg-white border-[#E1E4E8]  flex items-center gap-1 ${
+                SelectInputType?.length >= 1
+                  ? "shadow-bx hover:shadow-bxH transition-shadow ease-in-out delay-100"
+                  : "shadow-none"
               }`}
             >
               <span
@@ -176,7 +178,7 @@ export default function Home() {
               <div className="relative w-full h-auto rounded-lg px-4 gap-2 flex justify-center items-center ">
                 <button
                   onClick={() => setDisplayInputDropdown((cur) => !cur)}
-                  className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 shadow-bx"
+                  className=" rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 shadow-bx hover:shadow-bxH transition-shadow ease-in-out delay-100"
                 >
                   <Image
                     src="/plus.svg"
@@ -207,7 +209,9 @@ export default function Home() {
             disabled={SelectInputType?.length >= 1 ? false : true}
             onClick={() => handleDraftSave()}
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-white border-[#E1E4E8] flex items-center gap-1 ${
-              SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
+              SelectInputType?.length >= 1
+                ? "shadow-bx hover:shadow-bxH transition-shadow ease-in-out delay-100"
+                : "shadow-none"
             }`}
           >
             <Image
@@ -235,7 +239,9 @@ export default function Home() {
             className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#1E874B] ${
               SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${
-              SelectInputType?.length >= 1 ? "shadow-publish" : "shadow-none"
+              SelectInputType?.length >= 1
+                ? "shadow-publish hover:shadow-publishH transition-shadow ease-in-out delay-100"
+                : "shadow-none"
             } flex items-center gap-1`}
           >
             <Image

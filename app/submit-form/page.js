@@ -3,7 +3,7 @@
 import SubmitForm from "@/components/SubmitForm";
 import { useEffect, useState } from "react";
 
-function page() {
+function Page() {
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState();
   const [formValues, setFormValues] = useState({});
@@ -68,7 +68,7 @@ function page() {
   console.log(formValues);
 
   return (
-    <div className="max-h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
       <header className="max-w-[90rem]">
         <div className="max-w-[40rem] sm:h-14 h-24 border-r border-b border-l px-2 sm:px-6 flex flex-col gap-2 sm:flex-row justify-center sm:justify-between sm:items-center bg-white border-[#E1E4E8] mx-auto">
           <p className="text-[#0D0D0D] text-sm sm:text-base leading-6 font-semibold">
@@ -89,10 +89,10 @@ function page() {
           </div>
         </div>
       </header>
-      <main className="max-w-[40rem] border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto h-[1150px] w-full">
+      <main className="max-w-[40rem] h-[1287px] pb-60 border-r border-l overflow-y-scroll border-[#E1E4E8] bg-white mx-auto w-full">
         <form
           onSubmit={(e) => handleFormSubmit(e)}
-          className="w-full h-full flex flex-col p-6 gap-10"
+          className="w-full h-auto flex flex-col p-6 gap-10"
         >
           <div className="flex flex-col gap-8">
             {SelectInputType?.map((inputData, index) => {
@@ -121,4 +121,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

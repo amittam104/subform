@@ -137,7 +137,7 @@ function SingleSelectInput({
                     i + 1 === localOptions.length &&
                     `Option ${localOptions.length}`
                   }
-                  className="rounded-lg text-sm border grow border-[#E1E4E8] focus:outline-[#219653] py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
+                  className="rounded-lg text-sm border grow border-[#E1E4E8] focus:outline-[#219653] hover:shadow-bxH transition-shadow ease-in-out delay-100 py-[6px] px-2 disabled:bg-[#F6F8FA] w-full"
                 />
                 {i + 1 === localOptions.length && (
                   <button
