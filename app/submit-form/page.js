@@ -70,11 +70,11 @@ function page() {
   return (
     <div className="max-h-screen flex flex-col">
       <header className="max-w-[90rem]">
-        <div className="max-w-[40rem] h-14 border-r border-b border-l px-2 sm:px-6 flex justify-between items-center bg-white border-[#E1E4E8] mx-auto">
+        <div className="max-w-[40rem] sm:h-14 h-24 border-r border-b border-l px-2 sm:px-6 flex flex-col gap-2 sm:flex-row justify-center sm:justify-between sm:items-center bg-white border-[#E1E4E8] mx-auto">
           <p className="text-[#0D0D0D] text-sm sm:text-base leading-6 font-semibold">
             {formName}
           </p>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col sm:items-end gap-2">
             <p className="text-sm font-normal text-[#0D0D0D]">
               Form completeness — <span>{completeness || 0}%</span>
             </p>

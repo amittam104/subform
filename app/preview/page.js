@@ -60,12 +60,12 @@ function page() {
           />
           <Link href="/">
             <button
-              className={`rounded-xl border py-[6px] pr-[14px] pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
+              className={`rounded-xl border py-[6px] sm:pr-[14px] pr-4 pl-4 bg-white border-[#E1E4E8] flex items-center gap-1 ${
                 SelectInputType?.length >= 1 ? "shadow-bx" : "shadow-none"
               }`}
             >
               <span
-                className={`text-center text-xs sm:text-sm font-semibold ${
+                className={`text-center text-xs hidden sm:block sm:text-sm font-semibold ${
                   SelectInputType?.length >= 1
                     ? "text-[#0D0D0D]"
                     : "text-[#959DA5]"

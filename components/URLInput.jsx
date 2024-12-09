@@ -25,9 +25,9 @@ function URLInput({ data, index, setSelectInputType, ...props }) {
   };
 
   return (
-    <div className="w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
+    <div className="max-w-[36rem] h-auto relative rounded-2xl border border-[#E1E4E8] group hover:bg-[#FAFBFC] bg-white p-4 gap-2 mx-auto">
       <div className="w-full h-auto gap-2 flex flex-col">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-2 sm:flex-row justify-between sm:items-center">
           <div className="flex flex-col grow">
             <input
               type="text"
