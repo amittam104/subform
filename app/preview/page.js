@@ -13,7 +13,10 @@ function page() {
 
   useEffect(function () {
     try {
-      const formDraft = JSON.parse(localStorage.getItem("formDraft"));
+      let formDraft;
+      if (typeof window !== "undefined") {
+        formDraft = JSON.parse(localStorage.getItem("formDraft"));
+      }
 
       if (!formDraft) {
         alert(

@@ -9,7 +9,7 @@ import URLInput from "@/components/URLInput";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const componentMap = {
   shortAnswer: ShortAnsInput,
@@ -22,31 +22,28 @@ const componentMap = {
 export default function Home() {
   const router = useRouter();
   const [displayInputDropdown, setDisplayInputDropdown] = useState(false);
-  const [SelectInputType, setSelectInputType] = useState(() => {
+  const [SelectInputType, setSelectInputType] = useState([]);
+  const [formName, setFormName] = useState("");
+
+  useEffect(function () {
     try {
-      const savedForm = localStorage.getItem("formDraft");
-      if (!savedForm) return [];
+      if (typeof window !== "undefined") {
+        const savedForm = localStorage.getItem("formDraft");
 
-      const parsedForm = JSON.parse(savedForm);
+        if (savedForm) {
+          const parsedForm = JSON.parse(savedForm);
 
-      return Array.isArray(parsedForm) ? parsedForm.slice(0, -1) : [];
+          if (Array.isArray(parsedForm)) {
+            setSelectInputType(parsedForm.slice(0, -1));
+            setFormName(parsedForm[parsedForm.length - 1] || "");
+          }
+        }
+      }
     } catch (error) {
       console.error("Error loading form draft:", error);
       return [];
     }
-  });
-  const [formName, setFormName] = useState(() => {
-    try {
-      const savedForm = localStorage.getItem("formDraft");
-      if (!savedForm) return "";
-
-      const parsedForm = JSON.parse(savedForm);
-      // Get the last item as formName
-      return Array.isArray(parsedForm) ? parsedForm[parsedForm.length - 1] : "";
-    } catch (error) {
-      return "";
-    }
-  });
+  }, []);
 
   function handleDraftSave() {
     if (!formName) {
@@ -213,7 +210,7 @@ export default function Home() {
           <button
             disabled={SelectInputType?.length >= 1 ? false : true}
             onClick={() => handlePublishForm()}
-            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#219653] ${
+            className={`rounded-xl border py-[6px] pr-4 pl-[14px] bg-[#219653] border-[#1E874B] ${
               SelectInputType?.length >= 1 ? "opacity-100" : "opacity-50"
             } ${
               SelectInputType?.length >= 1 ? "shadow-publish" : "shadow-none"
