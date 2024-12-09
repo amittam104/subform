@@ -113,7 +113,23 @@ export default function Home() {
     }
   }
 
-  console.log(SelectInputType);
+  const handleDragStart = (e, index) => {
+    const dragHandle = e.target.closest(`[data-drag-handle="true"]`);
+
+    if (!dragHandle) {
+      e.preventDefault();
+      return false;
+    }
+
+    window.draggedItemIndex = index;
+  };
+
+  const handleDrop = (index) => {
+    const newList = [...SelectInputType];
+    const [draggedItem] = newList.splice(window.draggedItemIndex, 1);
+    newList.splice(index, 0, draggedItem);
+    setSelectInputType(newList);
+  };
 
   return (
     <div className="max-h-screen flex flex-col">
@@ -169,7 +185,13 @@ export default function Home() {
                   const InputComponent = componentMap[inputData.type];
 
                   return (
-                    <div key={index}>
+                    <div
+                      key={index}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, index)}
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={() => handleDrop(index)}
+                    >
                       <InputComponent
                         data={inputData}
                         setSelectInputType={setSelectInputType}

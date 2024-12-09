@@ -106,7 +106,10 @@ function SingleSelectInput({
                 />
               )}
             </div>
-            <div className="cursor-grab rounded-full border border-transparent hover:border-[#E1E4E8] p-1">
+            <div
+              className="drag-handle cursor-grab rounded-full border border-transparent hover:border-[#E1E4E8] p-1"
+              data-drag-handle="true"
+            >
               <Image
                 src="/dragDrop.svg"
                 alt="drag drop icon"
