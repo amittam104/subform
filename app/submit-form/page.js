@@ -1,9 +1,11 @@
 "use client";
 
 import SubmitForm from "@/components/SubmitForm";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function Page() {
+  const router = useRouter();
   const [SelectInputType, setSelectInputType] = useState([]);
   const [formName, setFormName] = useState();
   const [formValues, setFormValues] = useState({});
@@ -22,7 +24,7 @@ function Page() {
         alert(
           "Form draft is not saved. Please save the draft to preview the form."
         );
-        return;
+        router.push("/");
       }
 
       const formInputs = formDraft.slice(0, -1);
@@ -32,7 +34,7 @@ function Page() {
       setSelectInputType(formInputs);
       setFormName(nameOfForm);
     } catch (error) {
-      alert("Something went wrong while getting the saved form draft.");
+      console.error("Something wen wrong");
     }
   }, []);
 

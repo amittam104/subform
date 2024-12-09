@@ -22,7 +22,7 @@ function Page() {
         alert(
           "Form draft is not saved. Please save the draft to preview the form."
         );
-        return;
+        router.push("/");
       }
 
       const formInputs = formDraft.slice(0, -1);
@@ -32,7 +32,7 @@ function Page() {
       setSelectInputType(formInputs);
       setFormName(nameOfForm);
     } catch (error) {
-      alert("Something went wrong while getting the saved form draft.");
+      console.error("Something wen wrong");
     }
   }, []);
 

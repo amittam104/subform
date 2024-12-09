@@ -83,8 +83,11 @@ export default function Home() {
     }
 
     const blankQuestion = SelectInputType.find((type) => type.question === "");
+    const blankOptions = SelectInputType.find(
+      (type) => type.type === "singleSelect"
+    );
 
-    if (blankQuestion !== undefined) {
+    if (blankQuestion !== undefined || blankOptions.options.length === 0) {
       setFormSubmitAttempted(true);
       return alert(
         "Please fill all the input types with a question or a sentence."
